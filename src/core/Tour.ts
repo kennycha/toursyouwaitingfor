@@ -10,15 +10,21 @@ interface Concert {
 
 export class Tour {
   artist: Artists;
+  name: string;
   concerts: Concert[];
 
   constructor(artist: Artists) {
     this.artist = artist;
+    this.name = this.getTourName(artist);
     this.concerts = this.createConcerts(artist);
   }
 
+  getTourName(targetArtist: Artists) {
+    return tours[targetArtist].name;
+  }
+
   createConcerts(targetArtist: Artists) {
-    const schedules = tours[targetArtist];
+    const schedules = tours[targetArtist].schedules;
     const concerts: Concert[] = [];
     schedules.forEach((schedule, idx) => {
       const city = new City(schedule.city as Cities);

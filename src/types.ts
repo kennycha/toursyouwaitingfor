@@ -1,4 +1,4 @@
-export type Artists = "postmalone";
+export type Artists = "postmalone" | "lesserafim";
 
 export type Cities =
   | "Mansfield"
@@ -39,4 +39,7 @@ export type Cities =
   | "Ballarat"
   | "Newington"
   | "Perth"
-  | "Claremont";
+  | "Claremont"
+  | "Nagoya"
+  | "Osaka"
+  | "Jakarta";

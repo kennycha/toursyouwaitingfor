@@ -40,5 +40,19 @@
     { "date": "12.02.23", "city": "Newington" },
     { "date": "12.03.23", "city": "Perth" },
     { "date": "12.03.23", "city": "Claremont" }
+  ],
+  "lesserafim": [
+    { "date": "08.12.23", "city": "Seoul" },
+    { "date": "08.13.23", "city": "Seoul" },
+    { "date": "08.23.23", "city": "Nagoya" },
+    { "date": "08.24.23", "city": "Nagoya" },
+    { "date": "08.30.23", "city": "Tokyo" },
+    { "date": "08.31.23", "city": "Tokyo" },
+    { "date": "09.06.23", "city": "Osaka" },
+    { "date": "09.07.23", "city": "Osaka" },
+    { "date": "09.30.23", "city": "Hong Kong" },
+    { "date": "10.03.23", "city": "Jakarta" },
+    { "date": "10.07.23", "city": "Bangkok" },
+    { "date": "10.08.23", "city": "Bangkok" }
   ]
 }

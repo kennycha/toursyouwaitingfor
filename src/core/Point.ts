@@ -21,4 +21,8 @@ export default class Point {
   isEqual(another: Point) {
     return this.mesh.position.equals(another.mesh.position);
   }
+
+  isTooClose(another: Point) {
+    return this.mesh.position.distanceTo(another.mesh.position) < 0.01;
+  }
 }

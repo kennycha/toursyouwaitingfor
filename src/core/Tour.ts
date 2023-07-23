@@ -19,11 +19,11 @@ export class Tour {
     this.concerts = this.createConcerts(artist);
   }
 
-  getTourName(targetArtist: Artists) {
+  private getTourName(targetArtist: Artists) {
     return tours[targetArtist].name;
   }
 
-  createConcerts(targetArtist: Artists) {
+  private createConcerts(targetArtist: Artists) {
     const schedules = tours[targetArtist].schedules;
     const concerts: Concert[] = [];
     schedules.forEach((schedule, idx) => {

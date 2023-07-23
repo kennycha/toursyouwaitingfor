@@ -2,13 +2,14 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Tour } from "./core/Tour";
 import { Earth } from "./core/Earth";
-import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
 import Point from "./core/Point";
 import Curve from "./core/Curve";
+import Text from "./core/Text";
 import GradientCanvas from "./core/GradientCanvas";
-import { cubeTextureLoader } from "./core/loaders";
+import { cubeTextureLoader, fontLoader } from "./core/loaders";
+import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
 
-const init = () => {
+const init = async () => {
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true,
@@ -37,12 +38,11 @@ const init = () => {
   controls.enableZoom = true;
   controls.enableDamping = true;
   controls.dampingFactor = 0.1;
-  // @TODO dolly distance 설정 값 조정
   controls.minDistance = 2;
   controls.maxDistance = 5;
-  // @TODO pointer down일 때 autoRotate 멈추기
-  controls.autoRotate = true;
-  controls.autoRotateSpeed = Math.PI / 3;
+  // @TODO isRotating state로 변경
+  // controls.autoRotate = true;
+  // controls.autoRotateSpeed = Math.PI / 6;
 
   const directionalLight = new THREE.DirectionalLight(LIGHT_COLORS.directional, 0.7);
   const hemisphereLight = new THREE.HemisphereLight(LIGHT_COLORS.hemisphere, undefined, 0.7);
@@ -52,6 +52,7 @@ const init = () => {
 
   // @TODO isDay state로 변경
   const isDay = false;
+
   const earth = new Earth(EARTH_RADIUS, 0.95, isDay);
   scene.add(earth.mesh);
 
@@ -59,8 +60,15 @@ const init = () => {
   const currentArtist = "postmalone";
 
   const tour = new Tour(currentArtist);
+  const texts: Text[] = [];
   const points: Point[] = [];
   const curves: Curve[] = [];
+
+  // @TODO load 시 progress 표시 처리
+  // const loadingManager = new THREE.LoadingManager()
+  // loadingManager.onProgress = (_, loaded, total) => {};
+  // loadingManager.onLoad = () => {};
+  const font = await fontLoader.loadAsync("The Jamsil 3 Regular_Regular.json");
 
   tour.concerts.forEach((concert) => {
     const point = new Point(
@@ -68,8 +76,10 @@ const init = () => {
       concert.city.longitude,
       isDay ? POINT_COLORS.day : POINT_COLORS.night
     );
+    const text = new Text(concert.city.name, font, concert.city.latitude, concert.city.longitude);
     points.push(point);
-    scene.add(point.mesh);
+    texts.push(text);
+    scene.add(point.mesh, text.mesh);
   });
 
   const gradientCanvas = new GradientCanvas("#DDDDDD", isDay ? CURVE_COLORS.day : CURVE_COLORS.night);

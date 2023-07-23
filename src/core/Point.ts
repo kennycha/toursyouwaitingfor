@@ -17,4 +17,8 @@ export default class Point {
 
     this.mesh = mesh;
   }
+
+  isEqual(another: Point) {
+    return this.mesh.position.equals(another.mesh.position);
+  }
 }

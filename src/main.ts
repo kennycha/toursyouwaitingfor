@@ -2,8 +2,9 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Tour } from "./core/Tour";
 import { Earth } from "./core/Earth";
-import { EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
+import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
 import Point from "./core/Point";
+import Curve from "./core/Curve";
 
 const init = () => {
   const renderer = new THREE.WebGLRenderer({
@@ -52,7 +53,8 @@ const init = () => {
   const currentArtist = "postmalone";
 
   const tour = new Tour(currentArtist);
-  console.log("tour: ", tour);
+  const points: Point[] = [];
+  const curves: Curve[] = [];
 
   tour.concerts.forEach((concert) => {
     const point = new Point(
@@ -60,8 +62,27 @@ const init = () => {
       concert.city.longitude,
       isDay ? POINT_COLORS.day : POINT_COLORS.night
     );
+    points.push(point);
     scene.add(point.mesh);
   });
+
+  for (let i = 0; i < points.length - 1; i += 1) {
+    const start = points[i];
+    const end = points[i + 1];
+
+    if (start.isEqual(end)) {
+      continue;
+    }
+
+    const curve = new Curve(
+      start.mesh.position,
+      end.mesh.position,
+      EARTH_RADIUS,
+      isDay ? CURVE_COLORS.day : CURVE_COLORS.night
+    );
+    curves.push(curve);
+    scene.add(curve.mesh);
+  }
 
   const draw = () => {
     controls.update();

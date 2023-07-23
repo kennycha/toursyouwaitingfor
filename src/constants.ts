@@ -9,3 +9,8 @@ export const POINT_COLORS = {
   day: "#F2BE22",
   night: "#B04759",
 };
+
+export const CURVE_COLORS = {
+  day: "#F2BE22",
+  night: "#B04759",
+};

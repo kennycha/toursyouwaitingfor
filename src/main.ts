@@ -2,6 +2,8 @@ import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import { Tour } from "./core/Tour";
 import { Earth } from "./core/Earth";
+import { EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
+import Point from "./core/Point";
 
 const init = () => {
   const renderer = new THREE.WebGLRenderer({
@@ -35,23 +37,31 @@ const init = () => {
   controls.autoRotate = true;
   controls.autoRotateSpeed = Math.PI / 3;
 
-  const directionalLight = new THREE.DirectionalLight(0xffffff, 0.7);
-  const hemisphereLight = new THREE.HemisphereLight(0xffffff, undefined, 0.7);
+  const directionalLight = new THREE.DirectionalLight(LIGHT_COLORS.directional, 0.7);
+  const hemisphereLight = new THREE.HemisphereLight(LIGHT_COLORS.hemisphere, undefined, 0.7);
   directionalLight.position.set(2.65, 2.13, 1.02);
   hemisphereLight.position.set(0, 0, 1);
   scene.add(directionalLight, hemisphereLight);
 
   // @TODO isDay state로 변경
   const isDay = false;
-  const earth = new Earth(1.3, 0.7, isDay);
+  const earth = new Earth(EARTH_RADIUS, 0.95, isDay);
   scene.add(earth.mesh);
 
   // @TODO state로 변경
   const currentArtist = "postmalone";
+
   const tour = new Tour(currentArtist);
-  const newTour = new Tour("lesserafim");
   console.log("tour: ", tour);
-  console.log("newTour: ", newTour);
+
+  tour.concerts.forEach((concert) => {
+    const point = new Point(
+      concert.city.latitude,
+      concert.city.longitude,
+      isDay ? POINT_COLORS.day : POINT_COLORS.night
+    );
+    scene.add(point.mesh);
+  });
 
   const draw = () => {
     controls.update();

@@ -5,7 +5,7 @@ export class Earth {
   mesh: THREE.Mesh;
 
   constructor(radius: number, opacity: number, isDay = true) {
-    const geometry = new THREE.SphereGeometry(radius, 30, 30);
+    const geometry = new THREE.SphereGeometry(radius, 64, 64);
     const dayTexture = textureLoader.load("earth_day_texture.jpeg");
     const nightTexture = textureLoader.load("earth_night_texture.jpeg");
     const material = new THREE.MeshStandardMaterial({

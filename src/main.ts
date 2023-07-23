@@ -5,6 +5,7 @@ import { Earth } from "./core/Earth";
 import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
 import Point from "./core/Point";
 import Curve from "./core/Curve";
+import GradientCanvas from "./core/GradientCanvas";
 
 const init = () => {
   const renderer = new THREE.WebGLRenderer({
@@ -66,20 +67,17 @@ const init = () => {
     scene.add(point.mesh);
   });
 
+  const gradientCanvas = new GradientCanvas("#DDDDDD", isDay ? CURVE_COLORS.day : CURVE_COLORS.night);
+
   for (let i = 0; i < points.length - 1; i += 1) {
     const start = points[i];
     const end = points[i + 1];
 
-    if (start.isEqual(end)) {
+    if (start.isEqual(end) || start.isTooClose(end)) {
       continue;
     }
 
-    const curve = new Curve(
-      start.mesh.position,
-      end.mesh.position,
-      EARTH_RADIUS,
-      isDay ? CURVE_COLORS.day : CURVE_COLORS.night
-    );
+    const curve = new Curve(start.mesh.position, end.mesh.position, EARTH_RADIUS, gradientCanvas.texture);
     curves.push(curve);
     scene.add(curve.mesh);
   }

@@ -11,6 +11,6 @@ export const POINT_COLORS = {
 };
 
 export const CURVE_COLORS = {
-  day: "#F2BE22",
-  night: "#B04759",
+  day: "#E8AA42",
+  night: "#B70404",
 };

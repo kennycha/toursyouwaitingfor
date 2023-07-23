@@ -5,7 +5,7 @@ const TOTAL_DOT_COUNT = 100;
 export default class Curve {
   mesh: THREE.Mesh;
 
-  constructor(start: THREE.Vector3, end: THREE.Vector3, radius: number, color: string) {
+  constructor(start: THREE.Vector3, end: THREE.Vector3, radius: number, texture: THREE.CanvasTexture) {
     const positions: THREE.Vector3[] = [];
 
     for (let i = 0; i <= TOTAL_DOT_COUNT; i += 1) {
@@ -19,7 +19,7 @@ export default class Curve {
     const path = new THREE.CatmullRomCurve3(positions);
 
     const geometry = new THREE.TubeGeometry(path, 20, 0.003);
-    const material = new THREE.MeshBasicMaterial({ color });
+    const material = new THREE.MeshBasicMaterial({ map: texture });
     const mesh = new THREE.Mesh(geometry, material);
 
     this.mesh = mesh;

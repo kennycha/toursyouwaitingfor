@@ -6,6 +6,7 @@ import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./consta
 import Point from "./core/Point";
 import Curve from "./core/Curve";
 import GradientCanvas from "./core/GradientCanvas";
+import { cubeTextureLoader } from "./core/loaders";
 
 const init = () => {
   const renderer = new THREE.WebGLRenderer({
@@ -21,7 +22,11 @@ const init = () => {
   app.appendChild(renderer.domElement);
 
   const scene = new THREE.Scene();
-  // @TODO scene에 skybox 적용
+  // @TODO 이미지 위에 색 필터 입히는 툴
+  const backgroundMap = cubeTextureLoader.load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
+  backgroundMap.colorSpace = THREE.SRGBColorSpace;
+  scene.background = backgroundMap;
+  scene.environment = backgroundMap;
 
   const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 3);
@@ -34,7 +39,7 @@ const init = () => {
   controls.dampingFactor = 0.1;
   // @TODO dolly distance 설정 값 조정
   controls.minDistance = 2;
-  controls.maxDistance = 10;
+  controls.maxDistance = 5;
   // @TODO pointer down일 때 autoRotate 멈추기
   controls.autoRotate = true;
   controls.autoRotateSpeed = Math.PI / 3;

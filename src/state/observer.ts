@@ -8,7 +8,7 @@ export const observe = (callback: Function) => {
   currentObserver = null;
 };
 
-export const observable = (state: { [key: string]: any }) => {
+export const observable = <T extends { [key: string]: any }>(state: T): T => {
   Object.keys(state).forEach((key) => {
     let _value = state[key];
     const observers = new Set<Function>();

@@ -10,7 +10,13 @@ import { cubeTextureLoader, fontLoader } from "./core/loaders";
 import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
 import { observable, observe } from "./state/observer";
 
+interface AppState {
+  isRotating: boolean;
+}
+
 const init = async () => {
+  const appState = observable<AppState>({ isRotating: true });
+
   const renderer = new THREE.WebGLRenderer({
     alpha: true,
     antialias: true,
@@ -41,9 +47,10 @@ const init = async () => {
   controls.dampingFactor = 0.1;
   controls.minDistance = 1.75;
   controls.maxDistance = 4;
-  // @TODO isRotating state로 변경
-  // controls.autoRotate = true;
-  // controls.autoRotateSpeed = Math.PI / 6;
+  controls.autoRotateSpeed = Math.PI / 6;
+  observe(() => {
+    controls.autoRotate = appState.isRotating;
+  });
 
   const directionalLight = new THREE.DirectionalLight(LIGHT_COLORS.directional, 0.7);
   const hemisphereLight = new THREE.HemisphereLight(LIGHT_COLORS.hemisphere, undefined, 0.7);
@@ -51,10 +58,7 @@ const init = async () => {
   hemisphereLight.position.set(0, 0, 1);
   scene.add(directionalLight, hemisphereLight);
 
-  // @TODO isDay state로 변경
-  const isDay = false;
-
-  const earth = new Earth(EARTH_RADIUS, 0.95, isDay);
+  const earth = new Earth(EARTH_RADIUS, 0.95);
   scene.add(earth.mesh);
 
   // @TODO state로 변경
@@ -72,18 +76,14 @@ const init = async () => {
   const font = await fontLoader.loadAsync("The Jamsil 3 Regular_Regular.json");
 
   tour.concerts.forEach((concert) => {
-    const point = new Point(
-      concert.city.latitude,
-      concert.city.longitude,
-      isDay ? POINT_COLORS.day : POINT_COLORS.night
-    );
+    const point = new Point(concert.city.latitude, concert.city.longitude, POINT_COLORS.night);
     const text = new Text(`${concert.city.name}\n${concert.date}`, font, concert.city.latitude, concert.city.longitude);
     points.push(point);
     texts.push(text);
     scene.add(point.mesh, text.mesh);
   });
 
-  const gradientCanvas = new GradientCanvas("#DDDDDD", isDay ? CURVE_COLORS.day : CURVE_COLORS.night);
+  const gradientCanvas = new GradientCanvas("#DDDDDD", CURVE_COLORS.night);
 
   for (let i = 0; i < points.length - 1; i += 1) {
     const start = points[i];
@@ -97,15 +97,6 @@ const init = async () => {
     curves.push(curve);
     scene.add(curve.mesh);
   }
-
-  const state = observable({ a: 10, b: 20 });
-  observe(() => console.log(state.a));
-  observe(() => console.log(state.b));
-
-  setTimeout(() => {
-    state.a = 100;
-    state.b = 200;
-  }, 5000);
 
   const draw = () => {
     controls.update();

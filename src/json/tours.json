@@ -1,5 +1,5 @@
 {
-  "postmalone": {
+  "Post Malone": {
     "name": "If Y'all Weren't Here, I'd Be Crying Tour 2023",
     "schedules": [
       { "date": "07.22.23", "city": "Mansfield" },
@@ -44,7 +44,7 @@
       { "date": "12.03.23", "city": "Claremont" }
     ]
   },
-  "lesserafim": {
+  "LE SSERAFIM": {
     "name": "2023 LE SSERAFIM TOUR ‘FLAME RISES’",
     "schedules": [
       { "date": "08.12.23", "city": "Seoul" },

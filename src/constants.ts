@@ -5,12 +5,11 @@ export const LIGHT_COLORS = {
   hemisphere: "#FFFFFF",
 };
 
-export const POINT_COLORS = {
-  day: "#F2BE22",
-  night: "#B04759",
-};
+export const POINT_COLOR = "#B04759";
 
 export const CURVE_COLORS = {
-  day: "#E8AA42",
-  night: "#B70404",
+  start: "#DDDDDD",
+  end: "#B70404",
 };
+
+export const TEXT_COLOR = "#DDDDDD";

@@ -1,6 +1,6 @@
 export type Nullable<T> = T | null;
 
-export type Artists = "postmalone" | "lesserafim";
+export type Artists = "Post Malone" | "LE SSERAFIM";
 
 export type Cities =
   | "Mansfield"

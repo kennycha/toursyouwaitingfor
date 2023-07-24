@@ -2,7 +2,7 @@ import * as THREE from "three";
 import { Font } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { convertCoordinateToPosition } from "../utils";
-import { EARTH_RADIUS } from "../constants";
+import { EARTH_RADIUS, TEXT_COLOR } from "../constants";
 
 export default class Text {
   mesh: THREE.Mesh;
@@ -15,7 +15,7 @@ export default class Text {
       size: 0.01,
       height: 0.005,
     });
-    const material = new THREE.MeshBasicMaterial({ color: "#DDDDDD" });
+    const material = new THREE.MeshBasicMaterial({ color: TEXT_COLOR });
 
     const mesh = new THREE.Mesh(geometry, material);
     // @TODO text가 sphere 위에서 원점과 수직이 되도록 position, rotation 변경해야 함
@@ -31,5 +31,10 @@ export default class Text {
     }
 
     this.mesh = mesh;
+  }
+
+  dispose() {
+    this.mesh.geometry.dispose();
+    this.mesh.remove();
   }
 }

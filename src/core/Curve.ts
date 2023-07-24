@@ -24,4 +24,9 @@ export default class Curve {
 
     this.mesh = mesh;
   }
+
+  dispose() {
+    this.mesh.geometry.dispose();
+    this.mesh.remove();
+  }
 }

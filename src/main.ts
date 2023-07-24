@@ -101,6 +101,9 @@ const init = async () => {
   const displayTour = (artist: Artists) => {
     const tour = new Tour(artist);
 
+    const tourTitleElement = document.querySelector("#tourTitle") as HTMLHeadingElement;
+    tourTitleElement.innerText = `${artist} - ${tour.name}`;
+
     tour.concerts.forEach((concert) => {
       const point = new Point(concert.city.latitude, concert.city.longitude);
       const text = new Text(

@@ -1,9 +1,33 @@
 @import "./reset.css";
 
+:root {
+  --text-color: #dddddd;
+}
+
 * {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
+}
+
+.tour-title-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 32px;
+}
+
+.tour-title {
+  display: inline-block;
+  font-size: large;
+  font-weight: bold;
+  color: var(--text-color);
+  word-break: keep-all;
 }
 
 #app {
@@ -11,4 +35,26 @@
   top: 0;
   left: 0;
   outline: "none";
+}
+
+.copyright-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  padding: 16px;
+}
+
+.copyright {
+  color: var(--text-color);
+}
+
+.lil-gui {
+  top: auto !important;
+  right: 16px !important;
+  bottom: 16px;
 }

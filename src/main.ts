@@ -1,13 +1,14 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
-import { Tour } from "./core/Tour";
-import { Earth } from "./core/Earth";
+import Tour from "./core/Tour";
+import Earth from "./core/Earth";
 import Point from "./core/Point";
 import Curve from "./core/Curve";
 import Text from "./core/Text";
 import GradientCanvas from "./core/GradientCanvas";
 import { cubeTextureLoader, fontLoader } from "./core/loaders";
 import { CURVE_COLORS, EARTH_RADIUS, LIGHT_COLORS, POINT_COLORS } from "./constants";
+import { observable, observe } from "./state/observer";
 
 const init = async () => {
   const renderer = new THREE.WebGLRenderer({
@@ -96,6 +97,15 @@ const init = async () => {
     curves.push(curve);
     scene.add(curve.mesh);
   }
+
+  const state = observable({ a: 10, b: 20 });
+  observe(() => console.log(state.a));
+  observe(() => console.log(state.b));
+
+  setTimeout(() => {
+    state.a = 100;
+    state.b = 200;
+  }, 5000);
 
   const draw = () => {
     controls.update();

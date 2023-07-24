@@ -38,7 +38,7 @@ const init = async () => {
   controls.enableZoom = true;
   controls.enableDamping = true;
   controls.dampingFactor = 0.1;
-  controls.minDistance = 2;
+  controls.minDistance = 1.75;
   controls.maxDistance = 4;
   // @TODO isRotating state로 변경
   // controls.autoRotate = true;
@@ -76,7 +76,7 @@ const init = async () => {
       concert.city.longitude,
       isDay ? POINT_COLORS.day : POINT_COLORS.night
     );
-    const text = new Text(concert.city.name, font, concert.city.latitude, concert.city.longitude);
+    const text = new Text(`${concert.city.name}\n${concert.date}`, font, concert.city.latitude, concert.city.longitude);
     points.push(point);
     texts.push(text);
     scene.add(point.mesh, text.mesh);

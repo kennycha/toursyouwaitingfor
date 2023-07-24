@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { CanvasTexture } from "three";
 
 export default class GradientCanvas {
   canvas: HTMLCanvasElement;
@@ -22,7 +22,7 @@ export default class GradientCanvas {
     this.context.fillStyle = gradient;
     this.context.fillRect(0, 0, 256, 1);
 
-    this.texture = new THREE.CanvasTexture(this.canvas);
+    this.texture = new CanvasTexture(this.canvas);
   }
 
   updateColors(startColor: string, endColor: string) {
@@ -36,7 +36,7 @@ export default class GradientCanvas {
     this.context.fillRect(0, 0, 256, 1);
 
     const prevTexture = this.texture;
-    this.texture = new THREE.CanvasTexture(this.canvas);
+    this.texture = new CanvasTexture(this.canvas);
     prevTexture.dispose();
   }
 }

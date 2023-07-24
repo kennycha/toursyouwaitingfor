@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { Mesh, MeshBasicMaterial } from "three";
 import { Font } from "three/examples/jsm/loaders/FontLoader.js";
 import { TextGeometry } from "three/examples/jsm/geometries/TextGeometry.js";
 import { convertCoordinateToPosition } from "../utils";
@@ -15,9 +15,9 @@ export default class Text {
       size: 0.01,
       height: 0.005,
     });
-    const material = new THREE.MeshBasicMaterial({ color: TEXT_COLOR });
+    const material = new MeshBasicMaterial({ color: TEXT_COLOR });
 
-    const mesh = new THREE.Mesh(geometry, material);
+    const mesh = new Mesh(geometry, material);
     // @TODO text가 sphere 위에서 원점과 수직이 되도록 position, rotation 변경해야 함
     if (x > 0) {
       mesh.rotateY((2 * Math.PI) / 3);

@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { DirectionalLight, HemisphereLight, PerspectiveCamera, SRGBColorSpace, Scene, WebGLRenderer } from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 import GUI from "lil-gui";
 import Tour from "./core/Tour";
@@ -25,11 +25,11 @@ const init = async () => {
     currentArtist: REGISTERED_ARTISTS[0],
   });
 
-  const renderer = new THREE.WebGLRenderer({
+  const renderer = new WebGLRenderer({
     alpha: true,
     antialias: true,
   });
-  renderer.outputColorSpace = THREE.SRGBColorSpace;
+  renderer.outputColorSpace = SRGBColorSpace;
   renderer.setSize(window.innerWidth, window.innerHeight);
   renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 
@@ -37,13 +37,13 @@ const init = async () => {
   if (!app) return;
   app.appendChild(renderer.domElement);
 
-  const scene = new THREE.Scene();
+  const scene = new Scene();
   const backgroundMap = cubeTextureLoader.load(["px.png", "nx.png", "py.png", "ny.png", "pz.png", "nz.png"]);
-  backgroundMap.colorSpace = THREE.SRGBColorSpace;
+  backgroundMap.colorSpace = SRGBColorSpace;
   scene.background = backgroundMap;
   scene.environment = backgroundMap;
 
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
+  const camera = new PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
   camera.position.set(0, 0, 3);
   scene.add(camera);
 
@@ -59,8 +59,8 @@ const init = async () => {
     controls.autoRotate = appState.isRotating;
   });
 
-  const directionalLight = new THREE.DirectionalLight(LIGHT_COLORS.directional, 0.7);
-  const hemisphereLight = new THREE.HemisphereLight(LIGHT_COLORS.hemisphere, undefined, 0.7);
+  const directionalLight = new DirectionalLight(LIGHT_COLORS.directional, 0.7);
+  const hemisphereLight = new HemisphereLight(LIGHT_COLORS.hemisphere, undefined, 0.7);
   directionalLight.position.set(2.65, 2.13, 1.02);
   hemisphereLight.position.set(0, 0, 1);
   scene.add(directionalLight, hemisphereLight);

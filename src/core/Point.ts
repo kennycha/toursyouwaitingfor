@@ -1,4 +1,4 @@
-import * as THREE from "three";
+import { Mesh, MeshBasicMaterial, SphereGeometry } from "three";
 import { EARTH_RADIUS, POINT_COLOR } from "../constants";
 import { convertCoordinateToPosition } from "../utils";
 
@@ -8,10 +8,10 @@ export default class Point {
   constructor(latitude: number, longitude: number) {
     const { x, y, z } = convertCoordinateToPosition(latitude, longitude, EARTH_RADIUS);
 
-    const geometry = new THREE.SphereGeometry(0.02, 20, 20);
-    const material = new THREE.MeshBasicMaterial({ color: POINT_COLOR });
+    const geometry = new SphereGeometry(0.02, 20, 20);
+    const material = new MeshBasicMaterial({ color: POINT_COLOR });
 
-    const mesh = new THREE.Mesh(geometry, material);
+    const mesh = new Mesh(geometry, material);
     mesh.position.set(x, y, z);
 
     this.mesh = mesh;

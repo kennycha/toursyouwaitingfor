@@ -1,7 +1,7 @@
 import * as THREE from "three";
 import { textureLoader } from "./loaders";
 
-export class Earth {
+export default class Earth {
   mesh: THREE.Mesh;
 
   constructor(radius: number, opacity: number, isDay = true) {

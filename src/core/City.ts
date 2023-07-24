@@ -8,7 +8,7 @@ const cache: {
   };
 } = {};
 
-export class City {
+export default class City {
   name: string;
   latitude: number;
   longitude: number;

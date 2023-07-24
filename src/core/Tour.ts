@@ -1,4 +1,4 @@
-import { City } from "./City";
+import City from "./City";
 import tours from "../json/tours.json";
 import { Artists, Cities } from "../types";
 
@@ -8,7 +8,7 @@ interface Concert {
   date: string;
 }
 
-export class Tour {
+export default class Tour {
   artist: Artists;
   name: string;
   concerts: Concert[];

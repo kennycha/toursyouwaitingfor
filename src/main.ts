@@ -39,7 +39,7 @@ const init = async () => {
   controls.enableDamping = true;
   controls.dampingFactor = 0.1;
   controls.minDistance = 2;
-  controls.maxDistance = 5;
+  controls.maxDistance = 4;
   // @TODO isRotating state로 변경
   // controls.autoRotate = true;
   // controls.autoRotateSpeed = Math.PI / 6;

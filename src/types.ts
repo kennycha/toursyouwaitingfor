@@ -19,7 +19,7 @@ export type Cities =
   | "San Bernardino"
   | "Santiago"
   | "Curitiba"
-  | "ISão Paulo"
+  | "ISao Paulo"
   | "Mexico City"
   | "Bangkok"
   | "Singapore"

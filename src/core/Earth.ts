@@ -4,12 +4,11 @@ import { textureLoader } from "./loaders";
 export default class Earth {
   mesh: THREE.Mesh;
 
-  constructor(radius: number, opacity: number, isDay = true) {
+  constructor(radius: number, opacity: number) {
     const geometry = new THREE.SphereGeometry(radius, 64, 64);
-    const dayTexture = textureLoader.load("earth_day_texture.jpeg");
-    const nightTexture = textureLoader.load("earth_night_texture.jpeg");
+    const texture = textureLoader.load("earth_night_texture.jpeg");
     const material = new THREE.MeshStandardMaterial({
-      map: isDay ? dayTexture : nightTexture,
+      map: texture,
       transparent: true,
       opacity,
     });

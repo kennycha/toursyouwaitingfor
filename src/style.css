@@ -47,9 +47,14 @@
   z-index: 1;
   width: 100%;
   padding: 16px;
+  column-gap: 4px;
 }
 
-.copyright {
+.copyright-wrapper p {
+  color: var(--text-color);
+}
+
+.copyright-wrapper a {
   color: var(--text-color);
 }
 
